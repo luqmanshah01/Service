@@ -52,7 +52,6 @@
 
   #hero-slider-{{ section.id }} .hs-eyebrow {
     font-family: 'Poppins', sans-serif;
-    font-size: 13px;
     font-weight: 300;
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -62,7 +61,6 @@
 
   #hero-slider-{{ section.id }} .hs-headline {
     font-family: 'Oswald', sans-serif;
-    font-size: 88px;
     font-weight: 700;
     text-transform: uppercase;
     line-height: 0.92;
@@ -72,10 +70,15 @@
 
   #hero-slider-{{ section.id }} .hs-subline {
     font-family: 'Poppins', sans-serif;
-    font-size: 22px;
     font-weight: 400;
     margin-bottom: 44px;
   }
+
+  {%- for block in section.blocks -%}
+    #hero-slider-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-eyebrow  { font-size: {{ block.settings.eyebrow_size }}px; }
+    #hero-slider-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-headline { font-size: {{ block.settings.headline_size }}px; }
+    #hero-slider-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-subline  { font-size: {{ block.settings.subline_size }}px; }
+  {%- endfor -%}
 
   #hero-slider-{{ section.id }} .hs-cta {
     display: inline-block;
@@ -215,6 +218,7 @@
       role="group"
       aria-label="Slide {{ slide_num }} of {{ section.blocks.size }}"
       data-light="{{ is_light }}"
+      data-block="{{ block.id }}"
       {{ block.shopify_attributes }}
     >
       <div class="hs-left">
@@ -365,16 +369,46 @@
           "default": "New Arrivals"
         },
         {
+          "type": "range",
+          "id": "eyebrow_size",
+          "label": "Top label font size",
+          "min": 8,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 13
+        },
+        {
           "type": "textarea",
           "id": "headline",
           "label": "Headline (use newline for line break)",
           "default": "SUMMER\nEDIT"
         },
         {
+          "type": "range",
+          "id": "headline_size",
+          "label": "Headline font size",
+          "min": 30,
+          "max": 160,
+          "step": 2,
+          "unit": "px",
+          "default": 88
+        },
+        {
           "type": "text",
           "id": "subline",
           "label": "Subline",
           "default": "Upto 50% Off"
+        },
+        {
+          "type": "range",
+          "id": "subline_size",
+          "label": "Subline font size",
+          "min": 12,
+          "max": 48,
+          "step": 1,
+          "unit": "px",
+          "default": 22
         },
         {
           "type": "text",
@@ -407,10 +441,12 @@
         {
           "type": "slide",
           "settings": {
-            "placeholder_url": "https://placehold.co/800x900/E8002D/ffffff?text=Model",
             "eyebrow": "New Arrivals",
+            "eyebrow_size": 13,
             "headline": "SUMMER\nEDIT",
+            "headline_size": 88,
             "subline": "Upto 50% Off",
+            "subline_size": 22,
             "button_label": "Shop Now",
             "text_color": "light"
           }
