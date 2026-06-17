@@ -28,26 +28,14 @@
   }
 
   #hero-slider-{{ section.id }} .hs-left {
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 60px 60px 60px 90px;
-  }
-
-  #hero-slider-{{ section.id }} .hs-right {
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-
-  #hero-slider-{{ section.id }} .hs-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    align-items: center;
+    text-align: center;
+    padding: 60px 120px;
   }
 
   #hero-slider-{{ section.id }} .ta {
@@ -102,7 +90,7 @@
     background: transparent;
     cursor: pointer;
     transition: background 0.3s ease, color 0.3s ease;
-    align-self: flex-start;
+    align-self: center;
     line-height: 1;
   }
 
@@ -180,7 +168,6 @@
     }
     #hero-slider-{{ section.id }} .hs-slide {
       position: relative;
-      flex-direction: column-reverse;
       opacity: 1;
       pointer-events: all;
       display: none;
@@ -189,13 +176,9 @@
     #hero-slider-{{ section.id }} .hs-left {
       width: 100%;
       height: auto;
-      padding: 36px 28px 44px;
-    }
-    #hero-slider-{{ section.id }} .hs-right {
-      width: 100%;
-      height: 48vw;
-      min-height: 220px;
-      max-height: 340px;
+      padding: 36px 24px 44px;
+      align-items: center;
+      text-align: center;
     }
     #hero-slider-{{ section.id }} .hs-headline { font-size: 50px; }
     #hero-slider-{{ section.id }} .hs-subline  { font-size: 17px; margin-bottom: 28px; }
@@ -239,25 +222,6 @@
         <h2 class="hs-headline ta">{{ block.settings.headline | newline_to_br }}</h2>
         <p class="hs-subline ta">{{ block.settings.subline }}</p>
         <a href="{{ block.settings.button_link }}" class="hs-cta ta">{{ block.settings.button_label }}</a>
-      </div>
-      <div class="hs-right">
-        {%- if block.settings.image != blank -%}
-          {{
-            block.settings.image
-            | image_url: width: 900
-            | image_tag:
-              loading: forloop.first | ternary: 'eager', 'lazy',
-              widths: '400, 600, 800, 900',
-              sizes: '50vw',
-              alt: block.settings.headline
-          }}
-        {%- else -%}
-          <img
-            src="{{ block.settings.placeholder_url }}"
-            alt="{{ block.settings.headline }}"
-            loading="{{ forloop.first | ternary: 'eager', 'lazy' }}"
-          >
-        {%- endif -%}
       </div>
     </div>
   {%- endfor -%}
