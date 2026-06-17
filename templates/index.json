@@ -15,7 +15,6 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "placeholder_url": "https://placehold.co/800x900/E8002D/ffffff?text=Model",
             "eyebrow": "New Arrivals",
             "headline": "SUMMER\nEDIT",
             "subline": "Upto 50% Off",
@@ -27,7 +26,6 @@
         "slide-2": {
           "type": "slide",
           "settings": {
-            "placeholder_url": "https://placehold.co/800x900/111111/ffffff?text=Collection",
             "eyebrow": "Exclusive Drop",
             "headline": "MEN'S\nCOLLECTION",
             "subline": "Starting from PKR 1,999",
@@ -39,7 +37,6 @@
         "slide-3": {
           "type": "slide",
           "settings": {
-            "placeholder_url": "https://placehold.co/800x900/F5F0E8/333333?text=Women",
             "eyebrow": "Women's Fashion",
             "headline": "FRESH\nLOOKS",
             "subline": "New Season Styles",
