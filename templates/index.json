@@ -15,19 +15,15 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "eyebrow": "New Arrivals",
-            "eyebrow_size": 13,
-            "headline": "SUMMER\nEDIT",
-            "headline_size": 88,
-            "subline": "Upto 50% Off",
-            "subline_size": 22,
-            "button_label": "Shop Now",
-            "button_link": "/collections/all",
-            "text_color": "light"
+            "headline": "SUMMER SALE",
+            "headline_size": 160,
+            "text_color": "#ffffff"
           }
-        },
+        }
       },
-      "block_order": ["slide-1"],
+      "block_order": [
+        "slide-1"
+      ],
       "settings": {}
     },
     "featured_collection": {

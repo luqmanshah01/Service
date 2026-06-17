@@ -1,88 +1,134 @@
-{{ 'hero-slider.css' | asset_url | stylesheet_tag }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 {%- style -%}
-  #hero-slider-{{ section.id }} {
+  /* ── WRAPPER ── */
+  #hs-{{ section.id }} {
     position: relative;
     width: 100%;
     height: 90vh;
-    min-height: 560px;
+    min-height: 500px;
     overflow: hidden;
   }
 
-  #hero-slider-{{ section.id }} .hs-slide {
+  /* ── SLIDES ── */
+  #hs-{{ section.id }} .hs-slide {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
-    transition: opacity 0.65s ease;
+    transition: opacity 0.7s ease;
     pointer-events: none;
   }
 
-  #hero-slider-{{ section.id }} .hs-slide.active {
+  #hs-{{ section.id }} .hs-slide.active {
     opacity: 1;
     pointer-events: all;
     z-index: 1;
   }
 
-  #hero-slider-{{ section.id }} .hs-left {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 60px 120px;
-  }
-
-  #hero-slider-{{ section.id }} .ta {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-  }
-
-  #hero-slider-{{ section.id }} .hs-slide.active .ta { opacity: 1; transform: translateY(0); }
-  #hero-slider-{{ section.id }} .hs-slide.active .ta:nth-child(1) { transition-delay: 0.35s; }
-  #hero-slider-{{ section.id }} .hs-slide.active .ta:nth-child(2) { transition-delay: 0.50s; }
-  #hero-slider-{{ section.id }} .hs-slide.active .ta:nth-child(3) { transition-delay: 0.65s; }
-  #hero-slider-{{ section.id }} .hs-slide.active .ta:nth-child(4) { transition-delay: 0.80s; }
-
-  #hero-slider-{{ section.id }} .hs-eyebrow {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    display: block;
-  }
-
-  #hero-slider-{{ section.id }} .hs-headline {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 0.92;
-    margin-bottom: 22px;
-    letter-spacing: -1px;
-  }
-
-  #hero-slider-{{ section.id }} .hs-subline {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    margin-bottom: 44px;
-  }
-
+  /* ── PER-SLIDE BACKGROUND ── */
   {%- for block in section.blocks -%}
-    #hero-slider-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-eyebrow  { font-size: {{ block.settings.eyebrow_size }}px; }
-    #hero-slider-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-headline { font-size: {{ block.settings.headline_size }}px; }
-    #hero-slider-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-subline  { font-size: {{ block.settings.subline_size }}px; }
+    #hs-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] {
+      background: {{ block.settings.bg_color }};
+    }
   {%- endfor -%}
 
-  #hero-slider-{{ section.id }} .hs-cta {
+  /* ── CONTENT ── */
+  #hs-{{ section.id }} .hs-content {
+    width: 100%;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* ── HEADLINE ── */
+  #hs-{{ section.id }} .hs-headline {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+  }
+
+  #hs-{{ section.id }} .hs-slide.active .hs-headline {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── PER-SLIDE TEXT SIZES & COLORS ── */
+  {%- for block in section.blocks -%}
+    #hs-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-headline {
+      font-size: {{ block.settings.headline_size }}px;
+      color: {{ block.settings.text_color }};
+    }
+    #hs-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-eyebrow {
+      font-size: {{ block.settings.eyebrow_size }}px;
+      color: {{ block.settings.text_color }};
+    }
+    #hs-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-subline {
+      font-size: {{ block.settings.subline_size }}px;
+      color: {{ block.settings.text_color }};
+    }
+    #hs-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-cta {
+      border-color: {{ block.settings.text_color }};
+      color: {{ block.settings.text_color }};
+    }
+    #hs-{{ section.id }} .hs-slide[data-block="{{ block.id }}"] .hs-cta:hover {
+      background: {{ block.settings.text_color }};
+      color: {{ block.settings.bg_color }};
+    }
+  {%- endfor -%}
+
+  /* ── EYEBROW ── */
+  #hs-{{ section.id }} .hs-eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+  }
+  #hs-{{ section.id }} .hs-slide.active .hs-eyebrow {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── SUBLINE ── */
+  #hs-{{ section.id }} .hs-subline {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s;
+  }
+  #hs-{{ section.id }} .hs-slide.active .hs-subline {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── CTA ── */
+  #hs-{{ section.id }} .hs-cta {
     display: inline-block;
-    padding: 14px 42px;
+    margin-top: 36px;
+    padding: 14px 44px;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 600;
@@ -93,30 +139,47 @@
     background: transparent;
     cursor: pointer;
     transition: background 0.3s ease, color 0.3s ease;
-    align-self: center;
-    line-height: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: background 0.3s ease, color 0.3s ease,
+                opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+  }
+  #hs-{{ section.id }} .hs-slide.active .hs-cta {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  /* Slide 1 — Red */
-  #hero-slider-{{ section.id }} .hs-slide-1         { background: #E8002D; }
-  #hero-slider-{{ section.id }} .hs-slide-1 .hs-left { color: #fff; }
-  #hero-slider-{{ section.id }} .hs-slide-1 .hs-cta  { border-color: #fff; color: #fff; }
-  #hero-slider-{{ section.id }} .hs-slide-1 .hs-cta:hover { background: #fff; color: #E8002D; }
+  /* ── DOTS ── */
+  #hs-{{ section.id }} .hs-dots {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
 
-  /* Slide 2 — Black */
-  #hero-slider-{{ section.id }} .hs-slide-2         { background: #111111; }
-  #hero-slider-{{ section.id }} .hs-slide-2 .hs-left { color: #fff; }
-  #hero-slider-{{ section.id }} .hs-slide-2 .hs-cta  { border-color: #fff; color: #fff; }
-  #hero-slider-{{ section.id }} .hs-slide-2 .hs-cta:hover { background: #fff; color: #111111; }
+  #hs-{{ section.id }} .hs-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.6);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  }
 
-  /* Slide 3 — Cream */
-  #hero-slider-{{ section.id }} .hs-slide-3         { background: #F5F0E8; }
-  #hero-slider-{{ section.id }} .hs-slide-3 .hs-left { color: #111111; }
-  #hero-slider-{{ section.id }} .hs-slide-3 .hs-cta  { border-color: #111111; color: #111111; }
-  #hero-slider-{{ section.id }} .hs-slide-3 .hs-cta:hover { background: #111111; color: #F5F0E8; }
+  #hs-{{ section.id }} .hs-dot.active {
+    background: #fff;
+    border-color: #fff;
+    transform: scale(1.2);
+  }
 
-  /* Arrows */
-  #hero-slider-{{ section.id }} .hs-arrow {
+  /* ── ARROWS ── */
+  #hs-{{ section.id }} .hs-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -124,126 +187,80 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 12px;
-    color: #fff;
-    opacity: 0.75;
-    transition: opacity 0.2s, color 0.3s;
+    padding: 10px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
     line-height: 0;
   }
-  #hero-slider-{{ section.id }} .hs-arrow:hover { opacity: 1; }
-  #hero-slider-{{ section.id }} .hs-arrow svg { width: 30px; height: 30px; display: block; }
-  #hero-slider-{{ section.id }} .hs-prev { left: 20px; }
-  #hero-slider-{{ section.id }} .hs-next { right: 20px; }
+  #hs-{{ section.id }} .hs-arrow:hover { opacity: 1; }
+  #hs-{{ section.id }} .hs-arrow svg  { width: 28px; height: 28px; display: block; }
+  #hs-{{ section.id }} .hs-prev { left: 18px; }
+  #hs-{{ section.id }} .hs-next { right: 18px; }
 
-  /* Dots */
-  #hero-slider-{{ section.id }} .hs-dots {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-
-  #hero-slider-{{ section.id }} .hs-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.45);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.3s, transform 0.3s;
-  }
-
-  #hero-slider-{{ section.id }} .hs-dot.active {
-    background: #fff;
-    transform: scale(1.35);
-  }
-
-  /* Mobile */
+  /* ── MOBILE ── */
   @media (max-width: 768px) {
-    #hero-slider-{{ section.id }} {
-      height: auto;
-      min-height: auto;
+    #hs-{{ section.id }} {
+      height: 60vw;
+      min-height: 300px;
     }
-    #hero-slider-{{ section.id }} .hs-slide {
-      position: relative;
-      opacity: 1;
-      pointer-events: all;
-      display: none;
+    #hs-{{ section.id }} .hs-slide {
+      position: absolute;
     }
-    #hero-slider-{{ section.id }} .hs-slide.active { display: flex; }
-    #hero-slider-{{ section.id }} .hs-left {
-      width: 100%;
-      height: auto;
-      padding: 36px 24px 44px;
-      align-items: center;
-      text-align: center;
-    }
-    #hero-slider-{{ section.id }} .hs-headline { font-size: 50px; }
-    #hero-slider-{{ section.id }} .hs-subline  { font-size: 17px; margin-bottom: 28px; }
-    #hero-slider-{{ section.id }} .hs-eyebrow  { font-size: 11px; letter-spacing: 3px; margin-bottom: 10px; }
-    #hero-slider-{{ section.id }} .hs-cta      { font-size: 11px; padding: 12px 26px; letter-spacing: 2px; }
-    #hero-slider-{{ section.id }} .ta          { opacity: 1; transform: none; transition: none; }
-    #hero-slider-{{ section.id }} .hs-arrow    { display: none; }
-    #hero-slider-{{ section.id }} .hs-dots     { bottom: 14px; }
-  }
-
-  @media (max-width: 480px) {
-    #hero-slider-{{ section.id }} .hs-headline { font-size: 38px; }
-    #hero-slider-{{ section.id }} .hs-subline  { font-size: 15px; }
-    #hero-slider-{{ section.id }} .hs-left     { padding: 28px 20px 36px; }
+    #hs-{{ section.id }} .hs-content { padding: 0 20px; }
+    #hs-{{ section.id }} .hs-arrow   { display: none; }
+    #hs-{{ section.id }} .hs-dots    { bottom: 14px; }
+    #hs-{{ section.id }} .hs-dot     { width: 7px; height: 7px; }
   }
 {%- endstyle -%}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
-
-<div id="hero-slider-{{ section.id }}" aria-label="Featured promotions">
+<div id="hs-{{ section.id }}" aria-label="Hero Slider">
 
   {%- assign slide_num = 0 -%}
   {%- for block in section.blocks -%}
     {%- assign slide_num = slide_num | plus: 1 -%}
-    {%- assign is_light = false -%}
-    {%- if block.settings.text_color == 'dark' -%}
-      {%- assign is_light = true -%}
-    {%- endif -%}
-
     <div
-      class="hs-slide hs-slide-{{ slide_num }}{% if forloop.first %} active{% endif %}"
+      class="hs-slide{% if forloop.first %} active{% endif %}"
       role="group"
       aria-label="Slide {{ slide_num }} of {{ section.blocks.size }}"
-      data-light="{{ is_light }}"
       data-block="{{ block.id }}"
       {{ block.shopify_attributes }}
     >
-      <div class="hs-left">
-        <span class="hs-eyebrow ta">{{ block.settings.eyebrow }}</span>
-        <h2 class="hs-headline ta">{{ block.settings.headline | newline_to_br }}</h2>
-        <p class="hs-subline ta">{{ block.settings.subline }}</p>
-        <a href="{{ block.settings.button_link }}" class="hs-cta ta">{{ block.settings.button_label }}</a>
+      <div class="hs-content">
+        {%- if block.settings.eyebrow != blank -%}
+          <span class="hs-eyebrow">{{ block.settings.eyebrow }}</span>
+        {%- endif -%}
+
+        {%- if block.settings.headline != blank -%}
+          <h2 class="hs-headline">{{ block.settings.headline | upcase }}</h2>
+        {%- endif -%}
+
+        {%- if block.settings.subline != blank -%}
+          <p class="hs-subline">{{ block.settings.subline }}</p>
+        {%- endif -%}
+
+        {%- if block.settings.button_label != blank -%}
+          <a href="{{ block.settings.button_link }}" class="hs-cta">
+            {{ block.settings.button_label }}
+          </a>
+        {%- endif -%}
       </div>
     </div>
   {%- endfor -%}
 
-  <!-- Prev / Next -->
+  <!-- Arrows -->
   <button class="hs-arrow hs-prev" id="hs-prev-{{ section.id }}" aria-label="Previous slide">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="15 18 9 12 15 6"/>
     </svg>
   </button>
   <button class="hs-arrow hs-next" id="hs-next-{{ section.id }}" aria-label="Next slide">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="9 18 15 12 9 6"/>
     </svg>
   </button>
 
   <!-- Dots -->
-  <div class="hs-dots" id="hs-dots-{{ section.id }}" role="tablist" aria-label="Slide indicators">
+  <div class="hs-dots" id="hs-dots-{{ section.id }}" role="tablist">
     {%- for block in section.blocks -%}
       <button
         class="hs-dot{% if forloop.first %} active{% endif %}"
@@ -257,80 +274,79 @@
 </div>
 
 <script>
-(function() {
-  var wrap    = document.getElementById('hero-slider-{{ section.id }}');
+(function(){
+  var wrap    = document.getElementById('hs-{{ section.id }}');
   var slides  = Array.from(wrap.querySelectorAll('.hs-slide'));
   var dots    = Array.from(wrap.querySelectorAll('.hs-dot'));
   var prevBtn = document.getElementById('hs-prev-{{ section.id }}');
   var nextBtn = document.getElementById('hs-next-{{ section.id }}');
   var current = 0;
   var timer   = null;
-  var isMob   = window.innerWidth <= 768;
 
-  window.addEventListener('resize', function(){ isMob = window.innerWidth <= 768; });
+  function getTextColor(idx) {
+    var s = slides[idx];
+    var h = s.querySelector('.hs-headline');
+    if (!h) return '#fff';
+    return getComputedStyle(h).color;
+  }
 
   function goTo(idx) {
     var prev = current;
     current = ((idx % slides.length) + slides.length) % slides.length;
     if (prev === current) return;
 
-    if (!isMob) {
-      var textEls = slides[current].querySelectorAll('.ta');
-      textEls.forEach(function(el) {
-        el.style.transition = 'none';
-        el.style.opacity    = '0';
-        el.style.transform  = 'translateY(32px)';
-      });
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          textEls.forEach(function(el) {
-            el.style.transition = '';
-            el.style.opacity    = '';
-            el.style.transform  = '';
-          });
-          slides[prev].classList.remove('active');
-          slides[current].classList.add('active');
-          updateUI();
+    /* Reset incoming slide text so animation re-fires */
+    slides[current].querySelectorAll('.hs-headline,.hs-eyebrow,.hs-subline,.hs-cta').forEach(function(el){
+      el.style.transition = 'none';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+    });
+
+    slides[prev].classList.remove('active');
+
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        slides[current].querySelectorAll('.hs-headline,.hs-eyebrow,.hs-subline,.hs-cta').forEach(function(el){
+          el.style.transition = '';
+          el.style.opacity = '';
+          el.style.transform = '';
         });
+        slides[current].classList.add('active');
+        updateUI();
       });
-    } else {
-      slides[prev].classList.remove('active');
-      slides[current].classList.add('active');
-      updateUI();
-    }
+    });
   }
 
   function updateUI() {
-    var isLight = slides[current].dataset.light === 'true';
-    dots.forEach(function(d, i) {
+    var bgColor   = slides[current].style.background ||
+                    getComputedStyle(slides[current]).backgroundColor;
+    var textColor = getTextColor(current);
+
+    dots.forEach(function(d, i){
       var active = i === current;
       d.classList.toggle('active', active);
-      d.setAttribute('aria-selected', active);
-      d.style.background = active
-        ? (isLight ? '#111' : '#fff')
-        : (isLight ? 'rgba(0,0,0,0.28)' : 'rgba(255,255,255,0.45)');
+      d.setAttribute('aria-selected', String(active));
+      d.style.background   = active ? textColor : 'transparent';
+      d.style.borderColor  = active ? textColor : 'rgba(255,255,255,0.55)';
     });
-    [prevBtn, nextBtn].forEach(function(btn) {
-      btn.style.color = isLight ? '#111' : '#fff';
-    });
+
+    [prevBtn, nextBtn].forEach(function(b){ b.style.color = textColor; });
   }
 
-  function start() { timer = setInterval(function(){ goTo(current + 1); }, 4000); }
-  function reset() { clearInterval(timer); start(); }
+  function start(){ timer = setInterval(function(){ goTo(current + 1); }, 4000); }
+  function reset(){ clearInterval(timer); start(); }
 
   prevBtn.addEventListener('click', function(){ goTo(current - 1); reset(); });
   nextBtn.addEventListener('click', function(){ goTo(current + 1); reset(); });
   dots.forEach(function(d, i){ d.addEventListener('click', function(){ goTo(i); reset(); }); });
 
-  /* Touch swipe */
   var tx = 0;
   wrap.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, { passive: true });
-  wrap.addEventListener('touchend', function(e) {
+  wrap.addEventListener('touchend', function(e){
     var dx = tx - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 50) { goTo(dx > 0 ? current + 1 : current - 1); reset(); }
+    if (Math.abs(dx) > 50){ goTo(dx > 0 ? current + 1 : current - 1); reset(); }
   }, { passive: true });
 
-  /* Pause on hover */
   wrap.addEventListener('mouseenter', function(){ clearInterval(timer); });
   wrap.addEventListener('mouseleave', start);
 
@@ -352,84 +368,60 @@
       "name": "Slide",
       "settings": [
         {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Slide image (right side)"
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background colour",
+          "default": "#E8402A"
         },
         {
-          "type": "text",
-          "id": "placeholder_url",
-          "label": "Placeholder image URL (if no image uploaded)",
-          "default": "https://placehold.co/800x900/E8002D/ffffff?text=Model"
+          "type": "color",
+          "id": "text_color",
+          "label": "Text colour",
+          "default": "#ffffff"
         },
         {
           "type": "text",
           "id": "eyebrow",
-          "label": "Top label (small text)",
-          "default": "New Arrivals"
+          "label": "Top label (leave blank to hide)"
         },
         {
           "type": "range",
           "id": "eyebrow_size",
-          "label": "Top label font size",
-          "min": 8,
-          "max": 24,
-          "step": 1,
-          "unit": "px",
-          "default": 13
+          "label": "Top label size",
+          "min": 8, "max": 24, "step": 1, "unit": "px", "default": 13
         },
         {
-          "type": "textarea",
+          "type": "text",
           "id": "headline",
-          "label": "Headline (use newline for line break)",
-          "default": "SUMMER\nEDIT"
+          "label": "Headline",
+          "default": "SUMMER SALE"
         },
         {
           "type": "range",
           "id": "headline_size",
-          "label": "Headline font size",
-          "min": 30,
-          "max": 160,
-          "step": 2,
-          "unit": "px",
-          "default": 88
+          "label": "Headline size",
+          "min": 40, "max": 200, "step": 2, "unit": "px", "default": 160
         },
         {
           "type": "text",
           "id": "subline",
-          "label": "Subline",
-          "default": "Upto 50% Off"
+          "label": "Subline (leave blank to hide)"
         },
         {
           "type": "range",
           "id": "subline_size",
-          "label": "Subline font size",
-          "min": 12,
-          "max": 48,
-          "step": 1,
-          "unit": "px",
-          "default": 22
+          "label": "Subline size",
+          "min": 12, "max": 48, "step": 1, "unit": "px", "default": 20
         },
         {
           "type": "text",
           "id": "button_label",
-          "label": "Button label",
-          "default": "Shop Now"
+          "label": "Button label (leave blank to hide)"
         },
         {
           "type": "url",
           "id": "button_link",
           "label": "Button link"
-        },
-        {
-          "type": "select",
-          "id": "text_color",
-          "label": "Text colour",
-          "options": [
-            { "value": "light", "label": "White (dark background)" },
-            { "value": "dark",  "label": "Dark (light background)" }
-          ],
-          "default": "light"
         }
       ]
     }
@@ -441,36 +433,10 @@
         {
           "type": "slide",
           "settings": {
-            "eyebrow": "New Arrivals",
-            "eyebrow_size": 13,
-            "headline": "SUMMER\nEDIT",
-            "headline_size": 88,
-            "subline": "Upto 50% Off",
-            "subline_size": 22,
-            "button_label": "Shop Now",
-            "text_color": "light"
-          }
-        },
-        {
-          "type": "slide",
-          "settings": {
-            "placeholder_url": "https://placehold.co/800x900/111111/ffffff?text=Collection",
-            "eyebrow": "Exclusive Drop",
-            "headline": "MEN'S\nCOLLECTION",
-            "subline": "Starting from PKR 1,999",
-            "button_label": "Explore Now",
-            "text_color": "light"
-          }
-        },
-        {
-          "type": "slide",
-          "settings": {
-            "placeholder_url": "https://placehold.co/800x900/F5F0E8/333333?text=Women",
-            "eyebrow": "Women's Fashion",
-            "headline": "FRESH\nLOOKS",
-            "subline": "New Season Styles",
-            "button_label": "Discover Now",
-            "text_color": "dark"
+            "bg_color": "#E8402A",
+            "text_color": "#ffffff",
+            "headline": "SUMMER SALE",
+            "headline_size": 160
           }
         }
       ]
