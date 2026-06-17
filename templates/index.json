@@ -23,30 +23,8 @@
             "text_color": "light"
           }
         },
-        "slide-2": {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "Exclusive Drop",
-            "headline": "MEN'S\nCOLLECTION",
-            "subline": "Starting from PKR 1,999",
-            "button_label": "Explore Now",
-            "button_link": "/collections/all",
-            "text_color": "light"
-          }
-        },
-        "slide-3": {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "Women's Fashion",
-            "headline": "FRESH\nLOOKS",
-            "subline": "New Season Styles",
-            "button_label": "Discover Now",
-            "button_link": "/collections/all",
-            "text_color": "dark"
-          }
-        }
       },
-      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "block_order": ["slide-1"],
       "settings": {}
     },
     "6a3bb789-ce10-45f5-ae67-e2063ef8c76b": {
