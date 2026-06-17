@@ -15,10 +15,9 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/cloths-image.png",
             "placeholder_url": "https://placehold.co/800x900/E8002D/ffffff?text=Model",
-            "eyebrow": "New Arrivals",
-            "headline": "SUMMER\nEDIT",
+            "eyebrow": "",
+            "headline": "SUMMER Sale",
             "subline": "Upto 50% Off",
             "button_label": "Shop Now",
             "button_link": "/collections/all",
